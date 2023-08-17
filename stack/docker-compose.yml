@@ -1,9 +1,9 @@
-version: '3.2'
+version: "3.2"
 services:
   socket-server:
     # build: .
     image: sw360cab/wsk-base:0.1.1
-    restart: always
+    # restart: always
     deploy:
       mode: replicated
       replicas: 2
@@ -22,7 +22,7 @@ services:
       - "traefik.http.middlewares.socket-replaceprefix.replacepath.path=/"
       # Apply the middleware named `socket-replaceprefix` to the router named `scoker-router`
       - "traefik.http.routers.socket-router.middlewares=socket-replaceprefix@docker"
-    
+
   traefik-reverse-proxy:
     image: traefik:v2.2
     command:
