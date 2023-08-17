@@ -50,6 +50,11 @@ To summarize what you should expect with this configuration:
 2. Any message sent from the client is always passing through the same server with whom the session was initialized.
 3. Upon receiving a message, the server may broadcast it. The adapter is in charge of advertising all the other servers that will in turn forward the message to all the clients which have established a connection with them.
 
+# Diagrams
+
+| ![Multi Server Proxied Architecture](diagrams/multi_server_proxied.png) |
+| :---------------------------------------------------------------------: |
+
 # Tutorials
 
 ## Step 1: Create websocket server with Redis Adapter
@@ -261,6 +266,42 @@ node client_socket.js
 
 And the magic should happen! The communication among clients and websocket services keeps on working smoothly!
 
+## Results
+
+### Reverse proxy Traefik have:
+
+- Router: /wsk
+- Middle wares: prefix /wsk -> /
+- Services: Load Balancer ->
+
+* WS_Server1: http://10.0.2.10:5000
+* WS_Server2: http://10.0.2.11:5000
+
+| ![Traefik](diagrams/traefik.png) |
+| :------------------------------: |
+
+### Data workflow:
+
+1. Logs on clientA (id e85652e5-6149-4a16-ad31-03a0b3a8b140):
+
+| ![ClientA](diagrams/clientA.png) |
+| :------------------------------: |
+
+2. Logs on clientB (id c8ed6cd4-3b88-4f4f-88b2-5101d4609bb6)
+
+| ![ClientB](diagrams/clientB.png) |
+| :------------------------------: |
+
+3. Logs on server1: (10.0.2.10)
+
+| ![Server1](diagrams/server1.png) |
+| :------------------------------: |
+
+4. Logs on server2: (10.0.2.11)
+
+| ![Server1](diagrams/server2.png) |
+| :------------------------------: |
+
 ## References
 
 - [sw360cab/websockets-scaling: A tutorial to scale Websockets both via Docker Swarm and Kubernetes](https://github.com/sw360cab/websockets-scaling)
@@ -269,3 +310,4 @@ And the magic should happen! The communication among clients and websocket servi
 - [Docker Configuration Reference - Traefik](https://docs.traefik.io/reference/dynamic-configuration/docker/ "Docker Configuration Reference - Traefik")
 - [Kubernetes IngressRoute - Traefik](https://docs.traefik.io/routing/providers/kubernetes-crd/ "Kubernetes IngressRoute - Traefik")
 - [Middlewares - Traefik](https://docs.traefik.io/middlewares/overview/ "Middlewares - Traefik")
+- [Sticky Session - Traefik](https://traefik.io/glossary/what-are-sticky-sessions/ "Sticky Session - Traefik")
