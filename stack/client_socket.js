@@ -1,6 +1,6 @@
 const uuid = require('uuid');
 const io = require('socket.io-client');
-const client = io('http://localhost:30080', {
+const client = io('http://localhost:80', {
   // port: 5000 - when using direct connection
   // port: 80 - when using Haproxy or Treafik Reverse Proxy
   // port: 30000 - when using plain k8s with NodePort

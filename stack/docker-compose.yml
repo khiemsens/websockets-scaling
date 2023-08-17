@@ -2,7 +2,8 @@ version: "3.2"
 services:
   socket-server:
     # build: .
-    image: sw360cab/wsk-base:0.1.1
+    # image: sw360cab/wsk-base:0.1.1
+    image: websocket_local
     # restart: always
     deploy:
       mode: replicated
